@@ -26,6 +26,9 @@ const BRIDGE_HISTORY = [
 ];
 
 export default function BridgePage() {
+  const TREASURY_ADDRESS = '0xd657563170aae53d7bb866a95861dcee9fe6c089';
+  const BRIDGE_FEE_PERCENT = 0.1; // 0.1% fee
+  
   const [fromChain, setFromChain] = useState(CHAINS[0]);
   const [toChain, setToChain] = useState(CHAINS[3]);
   const [selectedToken, setSelectedToken] = useState(BRIDGE_TOKENS[0]);
@@ -33,7 +36,7 @@ export default function BridgePage() {
   const [showTokenSelect, setShowTokenSelect] = useState(false);
   const [bridging, setBridging] = useState(false);
 
-  const bridgeFee = amount ? (parseFloat(amount) * 0.001).toFixed(4) : '0';
+  const bridgeFee = amount ? (parseFloat(amount) * BRIDGE_FEE_PERCENT / 100).toFixed(4) : '0';
   const estimatedTime = '5-10 minutes';
   const receiveAmount = amount ? (parseFloat(amount) - parseFloat(bridgeFee)).toFixed(4) : '0';
 
@@ -314,4 +317,5 @@ export default function BridgePage() {
     </div>
   );
 }
+
 

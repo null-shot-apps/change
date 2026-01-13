@@ -41,7 +41,11 @@ export default function SwapPage() {
     }
   };
 
+  const TREASURY_ADDRESS = '0xd657563170aae53d7bb866a95861dcee9fe6c089';
+  const SWAP_FEE_PERCENT = 0.3; // 0.3% fee
+  
   const priceImpact = fromAmount ? ((Number(fromAmount) * fromToken.price) / 1000000 * 100).toFixed(2) : '0.00';
+  const swapFee = fromAmount ? (Number(fromAmount) * SWAP_FEE_PERCENT / 100).toFixed(6) : '0';
   const gasFee = '0.002';
   const route = `${fromToken.symbol} → ${toToken.symbol}`;
 
@@ -273,12 +277,20 @@ export default function SwapPage() {
                     <span className="font-medium text-gray-900 dark:text-white">{slippage}%</span>
                   </div>
                   <div className="flex justify-between text-sm">
+                    <span className="text-gray-600 dark:text-gray-400">Swap Fee ({SWAP_FEE_PERCENT}%)</span>
+                    <span className="font-medium text-gray-900 dark:text-white">{swapFee} {fromToken.symbol}</span>
+                  </div>
+                  <div className="flex justify-between text-sm">
                     <span className="text-gray-600 dark:text-gray-400">Gas Fee (est.)</span>
                     <span className="font-medium text-gray-900 dark:text-white">{gasFee} AVAX</span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-600 dark:text-gray-400">Route</span>
                     <span className="font-medium text-gray-900 dark:text-white">{route}</span>
+                  </div>
+                  <div className="flex justify-between text-sm pt-2 border-t border-gray-200 dark:border-gray-600">
+                    <span className="text-gray-600 dark:text-gray-400">Fee Recipient</span>
+                    <span className="font-mono text-xs text-gray-900 dark:text-white">{TREASURY_ADDRESS.slice(0, 6)}...{TREASURY_ADDRESS.slice(-4)}</span>
                   </div>
                 </div>
               )}
@@ -366,4 +378,6 @@ export default function SwapPage() {
     </div>
   );
 }
+
+
 
